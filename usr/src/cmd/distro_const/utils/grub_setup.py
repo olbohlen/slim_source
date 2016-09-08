@@ -253,14 +253,21 @@ elif (GRUB_SETUP_TYPE == "livecd"):
 elif (GRUB_SETUP_TYPE == "text-install"):
     # The following entries are the standard "hardwired" entries for 
     # the text-installer
-    # The menu.lst is hidden by default. GRUB doesn't show the menu.lst
-    # on the control terminal and automatically boots the default entry, 
-    # unless interrupted by pressing <ESC> before the timeout expires.
-    MENU_LST_FILE.write("hiddenmenu\n")
+    ENTRY = []
+    ENTRY.append("title " + RELEASE + " Text Install")
+    ENTRY.append("\tkernel$ /platform/i86pc/kernel/$ISADIR/unix")
+    ENTRY.append("\tmodule$ /platform/i86pc/$ISADIR/boot_archive")
+    ENTRIES.append(ENTRY)
 
     ENTRY = []
-    ENTRY.append("title " + RELEASE)
-    ENTRY.append("\tkernel$ /platform/i86pc/kernel/$ISADIR/unix")
+    ENTRY.append("title " + RELEASE + " Text Install ttya")
+    ENTRY.append("\tkernel$ /platform/i86pc/kernel/$ISADIR/unix -Bconsole=ttya")
+    ENTRY.append("\tmodule$ /platform/i86pc/$ISADIR/boot_archive")
+    ENTRIES.append(ENTRY)
+
+    ENTRY = []
+    ENTRY.append("title " + RELEASE + " Text Install ttyb")
+    ENTRY.append("\tkernel$ /platform/i86pc/kernel/$ISADIR/unix -Bconsole=ttyb")
     ENTRY.append("\tmodule$ /platform/i86pc/$ISADIR/boot_archive")
     ENTRIES.append(ENTRY)
 
